@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 
 public class GeradorDeFigurinhas {
 
-    public void criar(InputStream inputStream, String nome) throws Exception {
+    public String criar(InputStream inputStream, String nome) throws Exception {
 
         BufferedImage imagemOriginal = ImageIO.read(inputStream);
         int largura = imagemOriginal.getWidth();
@@ -32,5 +32,6 @@ public class GeradorDeFigurinhas {
         graphics.drawString("TOPZERA",drawLargura,drawAltura);
 
         ImageIO.write(novaImagem,"png",new File("src/saida/"+nome));
+        return "src/saida/"+nome;
     }
 }

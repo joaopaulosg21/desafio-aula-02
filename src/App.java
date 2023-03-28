@@ -24,10 +24,38 @@ public class App {
         GeradorDeFigurinhas gerador = new GeradorDeFigurinhas();
 
         for(Map<String,String> filme : filmes) {
+            System.out.println("\u001b[1m \u001b[34m Title: \u001b[m" + filme.get("title"));
+            
+            System.out.println("\u001b[1m \u001b[34m Poster: \u001b[m" + filme.get("image"));
+
             InputStream inputStream = new URL(filme.get("image")).openStream();
             String titleImage = filme.get("title").replace(":","-") + ".png";
-            gerador.criar(inputStream, titleImage);
+            String path = gerador.criar(inputStream, titleImage.replace(" ",""));
+            
+            System.out.println("\u001b[1m \u001b[34m Figurinha: \u001b[m" + path);
+            
+            int stars = (int) Double.parseDouble(filme.get("imDbRating"));
+            String color = changeColor(stars);
+
+            System.out.print("\u001b[1m " +color+ "Rating: " + filme.get("imDbRating")+" (");
+            for(int i=0; i<stars ;i++) {
+                System.out.print("\u2B50");
+            }
+            System.out.println(")\u001b[m\n");
         } 
 
+    }
+
+    public static String changeColor(int number) {
+        switch(number) {
+            case 9:
+                return "\u001b[42m";
+            case 8:
+                return "\u001b[43m";
+            case 7:
+                return "\u001b[41m";
+            default:
+                return "\u001b[47m";
+        }
     }
 }
